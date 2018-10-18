@@ -1,8 +1,6 @@
 <?php
 
-namespace Detector;
-
-use nnikitos95\WebViewDetector\Detector\DetectorInterface;
+namespace nnikitos95\WebViewDetector\Detector;
 
 class DetectorService implements DetectorInterface
 {
