@@ -1,0 +1,14 @@
+{
+    "name": "nnikitos95/web-view-detector",
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "nnikitos95\\WebViewDetector\\": "src/"
+        }
+    }
+}

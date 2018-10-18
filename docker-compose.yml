@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  # Application
+  php:
+    build: ./docker/php
+    container_name: php_setup
+    volumes:
+    - "./:/var/www/web-view-detector:rw"
+    expose:
+    - "9000"
+    - "9001"
+    command: bash -c "php-fpm"
+    working_dir: /var/www/web-view-detector
