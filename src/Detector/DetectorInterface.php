@@ -5,7 +5,7 @@ namespace nnikitos95\WebViewDetector\Detector;
 interface DetectorInterface
 {
     /**
-     * @return bool
+     * @return DetectResult
      */
-    public function detect(): bool;
+    public function detect(): DetectResult;
 }

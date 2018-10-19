@@ -6,7 +6,7 @@ interface ByUserAgentDetectorInterface
 {
     /**
      * @param string $userAgent
-     * @return bool
+     * @return DetectResult
      */
-    public function detect(string $userAgent): bool;
+    public function detect(string $userAgent): DetectResult;
 }

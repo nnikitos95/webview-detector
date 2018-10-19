@@ -23,22 +23,14 @@ class ByXRequestedWithHeaderDetector implements DetectorInterface
     }
 
     /**
-     * @return bool
+     * @return DetectResult
      */
-    public function detect(): bool
+    public function detect(): DetectResult
     {
         if ($this->headerValue) {
-            return true;
+            return DetectResult::true("APP_IN_HEADER:{$this->headerValue}");
         }
 
-        return false;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return "\"{$this->headerName}\" header detector";
+        return DetectResult::false();
     }
 }

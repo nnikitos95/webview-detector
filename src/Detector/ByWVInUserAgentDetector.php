@@ -6,10 +6,11 @@ class ByWVInUserAgentDetector implements ByUserAgentDetectorInterface
 {
     /**
      * @param string $userAgent
-     * @return bool
+     * @return DetectResult
      */
-    public function detect(string $userAgent): bool
+    public function detect(string $userAgent): DetectResult
     {
-        return preg_match('/wv/', $userAgent);
+        return preg_match('/wv/', $userAgent) ?
+            DetectResult::true('DETECTED BY "WV"') : DetectResult::false();
     }
 }
