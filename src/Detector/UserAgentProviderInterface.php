@@ -5,7 +5,7 @@ namespace nnikitos95\WebViewDetector\Detector;
 interface UserAgentProviderInterface
 {
     /**
-     * @return string
+     * @return string|null
      */
-    public function getUserAgent(): string;
+    public function getUserAgent(): ?string;
 }

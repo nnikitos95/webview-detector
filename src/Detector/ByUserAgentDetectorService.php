@@ -19,9 +19,9 @@ class ByUserAgentDetectorService implements DetectorInterface
         if (!$provider) {
             $provider = new class implements UserAgentProviderInterface {
                 /**
-                 * @return string
+                 * @return string|null
                  */
-                public function getUserAgent(): string
+                public function getUserAgent(): ?string
                 {
                     return $_SERVER['HTTP_USER_AGENT'] ?? null;
                 }
