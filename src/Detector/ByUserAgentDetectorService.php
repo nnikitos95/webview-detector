@@ -5,38 +5,51 @@ namespace nnikitos95\WebViewDetector\Detector;
 class ByUserAgentDetectorService implements DetectorInterface
 {
     /**
-     * @var string
-     */
-    protected $userAgent;
-
-    /**
      * @var bool
      */
     protected $isForceDetect = false;
+
+    /**
+     * @var UserAgentProviderInterface
+     */
+    protected $userAgentProvider;
+
+    public function __construct(UserAgentProviderInterface $provider = null)
+    {
+        if (!$provider) {
+            $provider = new class implements UserAgentProviderInterface {
+                /**
+                 * @return string
+                 */
+                public function getUserAgent(): string
+                {
+                    return $_SERVER['HTTP_USER_AGENT'] ?? null;
+                }
+            };
+        }
+
+        $this->userAgentProvider = $provider;
+    }
 
     /**
      * @var ByUserAgentDetectorInterface[]
      */
     protected $detectors = [];
 
-    public function __construct()
-    {
-        $this->userAgent = $_SERVER['HTTP_USER_AGENT'] ?? null;
-    }
-
     /**
      * @return DetectResult
      */
     public function detect(): DetectResult
     {
-        if (!$this->userAgent) {
+        $userAgent = $this->userAgentProvider->getUserAgent();
+        if (!$userAgent) {
             return DetectResult::false();
         }
 
         $isWebView = false;
         $message = '';
         foreach ($this->detectors as $detector) {
-            $result = $detector->detect($this->userAgent);
+            $result = $detector->detect($userAgent);
             if ($result->isSuccess()) {
                 $isWebView = true;
                 $message .= $result->getMessage() . ':';
@@ -50,7 +63,7 @@ class ByUserAgentDetectorService implements DetectorInterface
             $message = substr($message, 0, -1);
         }
 
-        return $isWebView ? DetectResult::true("{$message}:UA:{$this->userAgent}") : DetectResult::false();
+        return $isWebView ? DetectResult::true("{$message}:UA:{$userAgent}") : DetectResult::false();
     }
 
     /**
